@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Product>
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="card col-md-3" style="width: 18rem; margin:0px 5px 5px 0px">
+            <img class="card-img-top" src="@product.ImageURL" alt="product image">
+            <div class="card-body">
+                <h5 class="card-title">@product.Name</h5>
+                <p class="card-text">@product.Description</p>
+                <p class="card-text">@product.Price</p>
+            </div>
+        </div>
+    }    
+
+</div>
