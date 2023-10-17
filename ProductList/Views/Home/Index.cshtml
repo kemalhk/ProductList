@@ -13,7 +13,17 @@
             <div class="card col-md-3" style="width: 18rem; margin: 0px 5px 5px 0px">
                 <img class="card-img-top" src="@product.ImageURL" alt="product image" style="width: 200px; height: 200px;">
                 <div class="card-body">
-                    <h5 class="card-title">@product.Name</h5>
+                    <h5 class="card-title">
+                        
+                        @if (product.Name.Length > 30)
+                        {
+                            @product.Name.Substring(0, 30) @Html.Raw("...")
+                        }
+                        else
+                        {
+                            @product.Name
+                        }
+                    </h5>
                     <p class="card-text">
                         @if (product.Description.Length > 50)
                         {
@@ -24,10 +34,11 @@
                             @product.Description
                         }
                     </p>
-                    <p class="card-text">@product.Price</p>
+                    <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 150px;">@product.Price TL</p>
                 </div>
             </div>
         }
+
 
     </div>
 </body>
