@@ -8,7 +8,7 @@ namespace ProductList.Services
     public class ProductService
     {
         private readonly IMongoCollection<Product> _productCollection;
-
+        
         public ProductService(IOptions<DatabaseSettings> databaseSettings) { 
 
             var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
