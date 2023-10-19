@@ -35,6 +35,8 @@
                         }
                     </p>
                     <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 150px;">@product.Price TL</p>
+                    <button class="btn btn-primary" onclick="addToCart(@product.Id)">Sepete Ekle</button>
+                    <a href="@Url.Action("ProductDetails", "Product", new { productId = product.Id })" class="btn btn-primary">Detayları Görüntüle</a>
                 </div>
             </div>
         }
