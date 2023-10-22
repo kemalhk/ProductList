@@ -15,10 +15,10 @@
             <div class="col-md-6">
                 <img src="@Model.ImageURL" alt="Ürün Resmi" class="img-fluid" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" id="@Model.Id" data-name="@Model.Name" data-description="@Model.Description" data-price="@Model.Price" data-image="@Model.ImageURL">
                 <p>@Model.Description</p>
                 <p>Fiyat: @Model.Price TL</p>
-                <a href="#" class="btn btn-primary">Sepete Ekle</a>
+                <button class="btn btn-primary" onclick="addToCart('@Html.Raw(Model.Id)')">Sepete Ekle</button>
             </div>
         </div>
     </div>

@@ -21,6 +21,7 @@ namespace ProductList.Controllers
         public async Task<IActionResult> Index()
         {
             var productList = await _productService.GetProductsAsync();
+            //eğer ürün yoksa otomatik olarak ürün ekleme işlemi 
             if (productList == null)
             {
                 //get isteği oluştur
@@ -70,6 +71,13 @@ namespace ProductList.Controllers
             }
             //hatalı ise 
             return View(product);
+        }
+
+
+        
+        public async Task<IActionResult> Cart()
+        {
+            return View();
         }
 
 

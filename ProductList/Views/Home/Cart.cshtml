@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sepet</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-group" id="product-list"></ul>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Sepet Özeti</h5>
+                        <div id="total-price">Ürünün Toplamı: 0 TL</div>
+
+                        <button id="checkout-button" class="btn btn-primary">Ödemeye Geç</button>
+                        <button id="clear-button" onclick="clearCart()" style="display:none;" class="btn btn-danger">Sepeti Boşalt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var storedData = JSON.parse(localStorage.getItem('cart'));
+            if (storedData) {
+                $('#clear-button').show();
+                displayData(storedData);
+            } else {
+                displayEmptyMessage();
+                $('#clear-button').hide();
+            }
+
+            // Ödemeye Geç butonunu ekleme
+            addCheckoutButton(storedData);
+        });
+
+        function displayData(data) {
+            var productList = $("#product-list");
+            productList.empty();
+
+            var total = 0;
+
+            $.each(data, function (index, item) {
+                var productItem = $('<li class="list-group-item d-flex justify-content-between align-items-center">');
+                productItem.append('<img src="' + item.ImageURL + '" alt="' + item.Name + '" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">');
+
+                var productDetails = $('<div class="mt-3 p-3">');
+                productDetails.append('<h5 class="mb-1">' + item.Name + '</h5>');
+                productDetails.append('<p class="mb-1">' + item.Description + '</p>');
+                productDetails.append('<small class="text-muted">Fiyat: ' + item.Price + ' TL</small>');
+                productItem.append(productDetails);
+                total += item.Price;
+
+                var deleteButton = $('<button class="btn btn-danger btn-sm">Sil</button>');
+                deleteButton.click(function () {
+                    removeFromCart(index);
+                });
+
+                productItem.append(deleteButton);
+
+                productList.append(productItem);
+            });
+            
+            $("#total-price").text('Ürünün Toplamı: ' + total + ' TL');
+
+        }
+
+        function displayEmptyMessage() {
+            var productList = $("#product-list");
+            productList.html("<li class='list-group-item'>Sepetiniz boş</li>");
+            $("#total-price").empty();
+            $('#clear-button').hide();
+            $("#checkout-button").hide();
+            localStorage.setItem('cart', null);
+        }
+
+        function removeFromCart(index) {
+            var data = JSON.parse(localStorage.getItem('cart'));
+            data.splice(index, 1);
+            if(data?.length){
+                localStorage.setItem('cart', JSON.stringify(data));
+                displayData(data);
+            }else{
+                displayEmptyMessage();
+            }
+            
+        }
+
+        function clearCart(){
+            displayEmptyMessage();
+        }
+
+        function addCheckoutButton(data) {
+            var checkoutButton = $("#checkout-button");
+
+            checkoutButton.click(function () {
+                
+            });
+        }
+    </script>
+   
+</body>
+</html>

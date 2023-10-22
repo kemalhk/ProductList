@@ -1,10 +1,12 @@
-﻿@{
+﻿@using System.Text.Json;
+@{
     ViewData["Title"] = "Ürünler";
 }
 @model List<Product>
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="~/js/cart.js"></script>
 </head>
 <body>
     <div class="row">
@@ -12,7 +14,7 @@
         {
             <div class="card col-md-3" style="width: 18rem; margin: 0px 5px 5px 0px">
                 <img class="card-img-top" src="@product.ImageURL" alt="product image" style="width: 200px; height: 200px;">
-                <div class="card-body">
+                <div class="card-body" id="@product.Id" data-name ="@product.Name" data-description ="@product.Description" data-price ="@product.Price" data-image="@product.ImageURL" >
                     <h5 class="card-title">
                         
                         @if (product.Name.Length > 30)
@@ -35,12 +37,12 @@
                         }
                     </p>
                     <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 150px;">@product.Price TL</p>
-                    <button class="btn btn-primary" onclick="addToCart(@product.Id)">Sepete Ekle</button>
+                    <button class="btn btn-primary" onclick="addToCart('@Html.Raw(product.Id)')">Sepete Ekle</button>
                     <a href="@Url.Action("ProductDetails", "Product", new { productId = product.Id })" class="btn btn-primary">Detayları Görüntüle</a>
                 </div>
             </div>
         }
-
+        
 
     </div>
 </body>

@@ -13,12 +13,6 @@ namespace ProductList.Controllers
             _productService = productService;
         }
 
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public async Task<IActionResult> ProductDetails(string productId) {
 
             Product product = await _productService.GetProductAsync(productId);
@@ -29,5 +23,7 @@ namespace ProductList.Controllers
             }
              return View(product);
         }
+
+
     }
 }
